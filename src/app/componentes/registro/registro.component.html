@@ -19,6 +19,11 @@
     <input type="password" formControlName="password" />
   </div>
 
+  <div>
+    <label>Repetir contraseña: </label>
+    <input type="password" formControlName="confirmPassword" />
+  </div>
+
   <button type="submit" [disabled]="registroForm.invalid">Registrarse</button>
   <div>{{result}}</div>
 </form>
