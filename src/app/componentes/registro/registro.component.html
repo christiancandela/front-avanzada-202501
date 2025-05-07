@@ -2,7 +2,7 @@
   <div>
     <label>Nombre: </label>
     <input type="text" formControlName="fullName" />
-    <div *ngIf="registroForm.get('fullName')?.invalid && registroForm.get('fullName')?.touched">
+    <div *ngIf="registroForm.get('fullName')?.invalid && registroForm.get('fullName')?.touched" class="error">
       El nombre es requerido y debe tener al menos 3 caracteres.
     </div>
   </div>
@@ -10,7 +10,7 @@
   <div>
     <label>Email: </label>
     <input type="email" formControlName="email" />
-    <div *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched">
+    <div *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched" class="error">
       Ingrese un  email valido.
     </div>
   </div>
@@ -18,7 +18,7 @@
   <div>
     <label>Fecha de Nacimiento: </label>
     <input type="date" formControlName="dateBirth" />
-    <div *ngIf="registroForm.get('dateBirth')?.invalid && registroForm.get('dateBirth')?.touched">
+    <div *ngIf="registroForm.get('dateBirth')?.invalid && registroForm.get('dateBirth')?.touched" class="error">
       Ingrese una fecha de nacimiento valida.
     </div>
   </div>
@@ -26,7 +26,7 @@
   <div>
     <label>Contraseña: </label>
     <input type="password" formControlName="password" />
-    <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched">
+    <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched" class="error">
       Ingrese un password valido.
     </div>
   </div>
@@ -34,11 +34,11 @@
   <div>
     <label>Repetir contraseña: </label>
     <input type="password" formControlName="confirmPassword" />
-    <div *ngIf="registroForm.get('confirmPassword')?.invalid && registroForm.get('confirmPassword')?.touched">
+    <div *ngIf="registroForm.get('confirmPassword')?.invalid && registroForm.get('confirmPassword')?.touched" class="error">
       Ingrese un password valido.
     </div>
   </div>
-  <div *ngIf="registroForm.hasError('passwordsMismatch')" >
+  <div *ngIf="registroForm.hasError('passwordsMismatch')" class="error">
     La contraseña no coincide.
   </div>
   <button type="submit" [disabled]="registroForm.invalid">Registrarse</button>
