@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import {UserRegistrationRequest} from '../../dto/user-registration-request';
+import {UsersService} from '../../servicios/users.service';
+import {ErrorResponse} from '../../dto/error-response';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +15,7 @@ export class RegistroComponent {
   registroForm!: FormGroup;
   result = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {
     this.crearFormulario();
   }
 
@@ -30,8 +33,17 @@ export class RegistroComponent {
   }
 
   onSubmit(): void {
-    console.log('Datos del formulario:', this.registroForm.value);
-    this.result = 'Registro exitoso';
+    const newUser = this.registroForm.value as UserRegistrationRequest;
+    this.usersService.registrar(newUser).subscribe({
+      next: ( data) => {
+        console.log('El usuario ha sido creado correctamente: ', data);
+        this.result = 'Usuario registrado correctamente';
+      },
+      error: (error) => {
+        console.log('Se presentó un problema al registrar el usuario: ', error);
+        this.result = error.error.map((item: ErrorResponse) => item.message).join(', ');
+      }
+    });
   }
 
   passwordMatchValidator(formGroup: FormGroup): any {
