@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,NgIf],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -37,6 +38,6 @@ export class RegistroComponent {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
     // Si las contraseñas no coinciden, devuelve un error, de lo contrario, null
-    return password === confirmPassword ? null : { mismatch: true };
+    return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 }
