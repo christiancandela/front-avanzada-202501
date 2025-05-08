@@ -41,7 +41,12 @@ export class RegistroComponent {
       },
       error: (error) => {
         console.log('Se presentó un problema al registrar el usuario: ', error);
-        this.result = error.error.map((item: ErrorResponse) => item.message).join(', ');
+        if( error.error instanceof Array){
+          this.result = error.error.map((item: ErrorResponse) => item.message).join(', ');
+        } else {
+          this.result = error.error.message;
+        }
+
       }
     });
   }
