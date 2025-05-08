@@ -42,5 +42,6 @@
     La contraseña no coincide.
   </div>
   <button type="submit" [disabled]="registroForm.invalid">Registrarse</button>
-  <div>{{result}}</div>
+  <div class="{{classResult}}">{{result}}</div>
+  <div [ngClass]="classResult">{{result}}</div>
 </form>
