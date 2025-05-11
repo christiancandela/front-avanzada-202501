@@ -48,7 +48,7 @@ export class RegistroComponent {
         } else {
           this.result = error.error.message;
         }
-        this.classResult = 'error';
+        this.classResult = 'text-danger';
       }
     });
   }

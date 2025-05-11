@@ -1,7 +1,13 @@
-.error{
-  color: red;
-}
-
 .success{
   color: green;
+}
+
+.ng-invalid.ng-touched:not(form) {
+  border-color: #dc3545;
+  background-image: url("data:image/svg+xml,...");
+}
+
+.ng-valid.ng-touched:not(form) {
+  border-color: #28a745;
+  background-image: url("data:image/svg+xml,...");
 }
