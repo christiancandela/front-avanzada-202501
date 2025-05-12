@@ -5,11 +5,11 @@
       <label for="email">Correo Electrónico</label>
       <input type="text" pInputText
         id="email"
-        formControlName="email"
+        formControlName="username"
         placeholder="Ingresa tu correo"
         [style]="{ width: '100%' }"
       />
-      <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="p-error">
+      <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="p-error">
         Por favor, ingresa un correo válido.
       </small>
     </div>
@@ -27,10 +27,12 @@
         La contraseña es requerida.
       </small>
     </div>
+    <p-message *ngIf="errorMessage" severity="error" [text]="errorMessage"></p-message>
     <p-button
       type="submit"
       label="Iniciar Sesión"
       [disabled]="loginForm.invalid"
+      [loading]="loading"
       styleClass="p-button-raised p-button-primary"
     ></p-button>
   </form>
