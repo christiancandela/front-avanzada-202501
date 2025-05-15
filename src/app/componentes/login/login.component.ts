@@ -35,7 +35,8 @@ export class LoginComponent {
         next: () => {
           this.loading = false;
           alert('Inicio de sesión exitoso. Token almacenado.');
-          const home = this.authService.getRol().includes('ADMIN') ? '/home-admin' : '/home-user';
+          const home = this.authService.getRoles().includes('ADMIN') ? '/home-admin' : '/home-user';
+          alert(home);
           this.router.navigate([home]).then(() => {
             window.location.reload();
           });

@@ -20,8 +20,7 @@ export class HeaderComponent {
 
   public logout() {
     this.authService.logout();
-    this.router.navigate(["/login"]).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate(['/login']);
+    this.isLogged = false; // Actualiza estado local
   }
 }

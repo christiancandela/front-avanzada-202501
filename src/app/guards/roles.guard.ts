@@ -4,11 +4,14 @@ import {AuthService} from '../servicios/auth.service';
 
 export const rolesGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
-  const expectedRole: string[] = route.data["expectedRole"];
-  const realRole = authService.getRol();
-  if (!authService.isAuthenticated() || !expectedRole.some(r => realRole.includes(r))) {
-    inject(Router).navigate([""]);
-    return false;
+  const router = inject(Router);
+
+  if (!authService.isAuthenticated()) {
+    return router.createUrlTree(['/login']);
   }
-  return true;
+
+  const expectedRoles: string[] = route.data['expectedRoles'];
+  const userRoles = authService.getRoles();
+  const hasRole = expectedRoles.some(role => userRoles.includes(role));
+  return hasRole ? true : router.createUrlTree(['/unauthorized']);
 };

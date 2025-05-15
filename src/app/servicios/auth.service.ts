@@ -10,6 +10,10 @@ import {ErrorResponse} from '../dto/error-response';
 })
 export class AuthService {
   private url = "http://localhost:8080/login";
+  private readonly TOKEN_KEY = 'authToken';
+  private readonly TOKEN_TYPE_KEY = 'tokenType';
+  private readonly EXPIRE_AT_KEY = 'expireAt';
+  private readonly ROLES_KEY = 'roles';
   constructor(private http: HttpClient) {}
 
   /**
@@ -22,10 +26,10 @@ export class AuthService {
     const request: LoginRequest = { username, password };
     return this.http.post<TokenResponse>(this.url, request).pipe(
       tap(response => {
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('tokenType', response.type);
-        localStorage.setItem('expireAt', response.expireAt);
-        localStorage.setItem('roles', JSON.stringify(response.roles));
+        localStorage.setItem(this.TOKEN_KEY, response.token);
+        localStorage.setItem(this.TOKEN_TYPE_KEY, response.type);
+        localStorage.setItem(this.EXPIRE_AT_KEY, response.expireAt);
+        localStorage.setItem(this.ROLES_KEY, JSON.stringify(response.roles));
       }),
       catchError(error => {
         let errorMsg = 'Error al iniciar sesión';
@@ -42,29 +46,30 @@ export class AuthService {
    * Verifica si el usuario está autenticado y el token no ha expirado
    */
   isAuthenticated(): boolean {
-    const expireAt = localStorage.getItem('expireAt');
+    const expireAt = localStorage.getItem(this.EXPIRE_AT_KEY);
     if (!expireAt) {
       return false;
     }
     const expireDate = new Date(expireAt);
-    return !!localStorage.getItem('authToken') && expireDate > new Date();
+    return !!localStorage.getItem(this.TOKEN_KEY) && expireDate > new Date();
   }
 
   /**
    * Cierra la sesión
    */
   logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('tokenType');
-    localStorage.removeItem('expireAt');
-    localStorage.removeItem('roles');
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.TOKEN_TYPE_KEY);
+    localStorage.removeItem(this.EXPIRE_AT_KEY);
+    localStorage.removeItem(this.ROLES_KEY);
   }
 
   public getToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  getRol() {
-    return ''+localStorage.getItem('roles');
+  getRoles() {
+    const roles = localStorage.getItem(this.ROLES_KEY);
+    return roles ? JSON.parse(roles) : [];
   }
 }
