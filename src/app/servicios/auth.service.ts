@@ -60,6 +60,10 @@ export class AuthService {
     localStorage.removeItem('roles');
   }
 
+  public getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
   getRol() {
     return ''+localStorage.getItem('roles');
   }

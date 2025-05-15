@@ -14,8 +14,12 @@
 
     <!-- Botones -->
     <div >
-      <button routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
-      <button routerLink="/registro" class="btn btn-primary">Registro</button>
+      @if (!isLogged) {
+        <button routerLink="/login" class="btn btn-outline-primary me-2">Login</button>
+        <button routerLink="/registro" class="btn btn-primary">Registro</button>
+      } @else {
+        <button  (click)="logout()" class="btn btn-primary">Logout</button>
+      }
     </div>
   </header>
 </div>
