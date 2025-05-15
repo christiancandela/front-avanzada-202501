@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import {AuthService} from '../../servicios/auth.service';
 import { NgIf } from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent {
   errorMessage: string | null = null;
   loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -34,7 +35,10 @@ export class LoginComponent {
         next: () => {
           this.loading = false;
           alert('Inicio de sesión exitoso. Token almacenado.');
-          // Redirigir a dashboard
+          const home = "/home-" + this.authService.getRol().toLowerCase()
+          this.router.navigate([home]).then(() => {
+            window.location.reload();
+          });
         },
         error: (err) => {
           this.loading = false;

@@ -59,4 +59,8 @@ export class AuthService {
     localStorage.removeItem('expireAt');
     localStorage.removeItem('roles');
   }
+
+  getRol() {
+    return ''+localStorage.getItem('roles');
+  }
 }
